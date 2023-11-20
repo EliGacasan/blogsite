@@ -1,0 +1,21 @@
+.nav-item {
+  font-size: 16px;
+}
+
+.nav-item:hover {
+  text-decoration: underline !important;
+  text-decoration-line: underline;
+  text-decoration-color: white;
+}
+
+.page-content {
+  margin-top: 112px !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  
+}
+
+.page-container {
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+}
