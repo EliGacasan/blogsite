@@ -11,11 +11,24 @@
 .page-content {
   margin-top: 112px !important;
   max-width: 100% !important;
-  width: 100% !important;
+  width: 95% !important;
+
   
 }
 
 .page-container {
   margin-left: 20px !important;
   margin-right: 20px !important;
+}
+
+
+.bar-chart {
+  border: solid 1px gray;
+  position: relative;
+}
+
+.bar {
+  height: 20px;
+  background-color: orange;
+  position: absolute;
 }
