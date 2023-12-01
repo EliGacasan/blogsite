@@ -21,14 +21,14 @@
   margin-right: 20px !important;
 }
 
-
-.bar-chart {
-  border: solid 1px gray;
-  position: relative;
+.BlogTitle {
+  margin-top: 100px;
 }
 
-.bar {
-  height: 20px;
-  background-color: orange;
-  position: absolute;
+
+
+
+svg {
+  overflow: visible;
+  background: #ffffff;
 }

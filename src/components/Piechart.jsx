@@ -3,37 +3,64 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 
-function Piechart() {
-  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75]);
+function PieChart() {
+
+  const [ data, setData ] = useState([
+    {name: "Bad thoughts", value: 10}, 
+    {name: "Good thoughts", value: 1}
+  ]);
   const svgRef = useRef();
 
-  // will be called initially and on every data change
   useEffect(() => {
-    const svg = d3.select(svgRef.current);
-    const myLine = d3.line()
-      .x((value, index) => index * 50)
-      .y(value => 150 - value)
-      .curve(d3.curveCardinal);
-    svg
-      .selectAll("path")
-      .data([data])
-      .join("path")
-      .attr("d",value => myLine(value))
-      .attr("fill", "none")
-      .attr("stroke", "blue");
-  }, [data]);
+    const svg = d3.select(svgRef.current)
 
+    // set up svg container
+    const w = 300;
+    const h = 300;
+    const radius = w / 2;
+    
+    svg
+      .attr('width', w)
+      .attr("height", h)
+      .style("overflow", "visible")
+      .style("transform", "translate(200px,100px)");
+  
+
+
+    // set up chart
+    const formattedData = d3.pie().value(d => d.value)(data);
+    const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
+    const colorGenerator = d3.scaleOrdinal().range(["red", "blue"]);
+
+    // set up svg data
+    svg.selectAll()
+      .data(formattedData)
+      .join('path')
+        .attr("d", arcGenerator)
+        .attr("fill", d => colorGenerator(d.value))
+        .style("opacity", 1)
+
+  
+    // set up annotation
+    svg.selectAll()
+      .data(formattedData)
+      .join('text')
+      .text(d => d.data.name)
+      .attr("transform", d => `translate(${arcGenerator.centroid(d)})`)
+      .style('text-anchor', 'middle');
+
+
+  }, [data])
+
+  // Returning statement
   return (
     <React.Fragment>
       <svg ref={svgRef}>
+
       </svg>
-        
-      <br />
-      <button onClick={() => setData(data.map(value => value + 5))}>Update Data</button>
-      <button onClick={() => setData(data.filter(value => value < 35))}>Filter data</button>
     </React.Fragment>
 
   )
 }
 
-export default Piechart
+export default PieChart
